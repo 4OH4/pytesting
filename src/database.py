@@ -26,6 +26,7 @@ class DAO(object):
 
         Usage:
         >>> dao = DAO('example.db')
+        Database connection initialised
         >>> dao.create_jobs_table()
         >>> dao.insert_job('Cook', 1, 'Tasty Food Shack', 1000)
         1
@@ -40,6 +41,7 @@ class DAO(object):
         self.db_filepath = db_filepath
         self.connection = sqlite3.connect(self.db_filepath)
         self.cur = self.connection.cursor()
+        print('Database connection initialised')
 
     def close(self):
         """close sqlite3 connection"""
