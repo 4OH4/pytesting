@@ -28,10 +28,10 @@ class DAO(object):
         >>> dao = DAO('example.db')
         Database connection initialised
         >>> dao.create_jobs_table()
-        >>> dao.insert_job('Cook', 1, 'Tasty Food Shack', 1000)
+        >>> dao.insert_job('Cook','Tasty Food Shack',11000,'11/06/2019')
         1
         >>> dao.query_job(1)
-        ('Cook', 1, 'Tasty Food Shack', 1000)
+        ('Cook', 1, 'Tasty Food Shack', 11000, '11/06/2019')
         >>> dao.close()
         >>> dao.delete_db()
     """
@@ -56,18 +56,19 @@ class DAO(object):
         self.cur.execute('''CREATE TABLE IF NOT EXISTS jobs(job_title text,
                                                             job_id integer PRIMARY KEY, 
                                                             company_name text,
-                                                            salary integer)''')
-    def insert_job(self, job_title, job_id, company_name, salary):
+                                                            salary integer,
+                                                            date text)''')
+    def insert_job(self, job_title, company_name, salary, date):
         sql = """
-            INSERT INTO jobs (job_title, job_id, company_name, salary)
+            INSERT INTO jobs (job_title, company_name, salary, date)
             VALUES (?, ?, ?, ?)"""
-        self.cur.execute(sql, (job_title, job_id, company_name, salary))
+        self.cur.execute(sql, (job_title, company_name, salary, date))
         self.commit()
         return self.cur.lastrowid
 
     def query_job(self, job_id):
         sql = """
-            SELECT job_title, job_id, company_name, salary FROM jobs WHERE job_id = ?
+            SELECT job_title, job_id, company_name, salary, date FROM jobs WHERE job_id = ?
             """
         self.cur.execute(sql, str(job_id))
         result = self.cur.fetchone()

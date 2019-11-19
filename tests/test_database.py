@@ -11,26 +11,60 @@ Run tests (from the root folder using):
 python -m pytest test/
 
 """
+import sqlite3
 
-import os
-import mock
+from truth.truth import AssertThat
 
 # Module under test
 from src.database import DAO
+
+
+def test_init(mocker):
+    """
+        Test database initialisation
+    """
+
+    # given: setup test framework
+    mock_SQLite3 = mocker.patch('src.database.sqlite3')
+    mock_ConnectionObj = mocker.MagicMock(sqlite3.Connection)  # mock Connection object
+    mock_CursorObj = mocker.MagicMock(sqlite3.Cursor)  # mock Cursor object
+    mock_ConnectionObj.cursor.return_value = mock_CursorObj  # setup method calls
+    mock_SQLite3.connect.return_value = mock_ConnectionObj
+    
+    # when: database is initialised
+    dao = DAO()
+    
+    # then: expect connection and request for cursor
+    AssertThat(mock_SQLite3.connect).WasCalled().Once()
+    mock_SQLite3.connect.assert_called_once()
+    mock_ConnectionObj.cursor.assert_called_once()
 
 
 def test_delete_db(mocker):
     """
         Test deleting the database file
     """
-
-    mocker.patch('os.remove')
-
-    # /given
+    
+    # given: setup test framework
+    mock_SQLite3 = mocker.patch('src.database.sqlite3')  # patch database createion in DAO.__init__
     dao = DAO()
+    mock_os_remove = mocker.patch('src.database.os.remove')  # patch database deletion command
 
     # /when
     dao.delete_db()
     
     # /then
-    os.remove.assert_called_once()
+    mock_os_remove.assert_called_once()
+
+
+def test_close_db(mocker):
+    pass
+
+def test_create_jobs_table(mocker):
+    pass
+
+def test_insert_job(mocker):
+    pass
+
+def test_query_job(mocker):
+    pass

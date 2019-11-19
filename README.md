@@ -26,6 +26,6 @@ Doctests are executed for a single module at a time. The command runs the tests 
 The `-v` argument requests verbose output - otherwise it only reports test failures.
 
 ### Pytest
-To run all test cases (in the `tests/` folder):
+To run all test cases:
 
-    python -m pytest tests
+    pytest
