@@ -29,3 +29,5 @@ The `-v` argument requests verbose output - otherwise it only reports test f
 To run all test cases:
 
     pytest
+
+To run the code coverage report:
