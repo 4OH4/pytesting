@@ -1,5 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/4OH4/pytesting.svg?branch=master)](https://travis-ci.org/4OH4/pytesting)
+[![Coverage Status](https://coveralls.io/repos/github/4OH4/pytesting/badge.svg?branch=master)](https://coveralls.io/github/4OH4/pytesting?branch=master)
 
 # pytesting
 Unit testing, code coverage and mocking with `Pytest`, and property-based testing with `Hypothesis`.
