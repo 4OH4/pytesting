@@ -8,6 +8,6 @@ install:
   - pip install coveralls      # only required to get a coverage report on coveralls.io
 # command to run tests
 script:
-  - python -m pytest
+  - python -m pytest --cov=src tests
 after_success:
   - coveralls
