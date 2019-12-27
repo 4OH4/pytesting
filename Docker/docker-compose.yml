@@ -1,0 +1,25 @@
+version: "3.2"
+
+services:
+  pytesting:       
+    build: 
+      dockerfile: ./Docker/Dockerfile
+      context: ../
+
+    env_file:
+      - env-config.env
+      
+    stdin_open: true
+    tty: true
+    
+    command:
+      /bin/bash
+
+    # ports:
+    #   - "8888:8888"
+
+    #command: 
+    #  jupyter lab --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='local_dev'
+
+    volumes:
+      - ../:/working
