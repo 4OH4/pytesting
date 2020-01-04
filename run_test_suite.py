@@ -21,17 +21,17 @@ import sys
 
 import pytest
 
-def run_unittests():
-    print("Unittesting model...")
-    pytest.main(['-v', 'tests'])
+def run_all():
+    print("Running all tests...")
+    pytest.main(['-v', 'tests', '--cov-report', 'term-missing', '--cov=src/'])
 
-def run_coverage():
+def run_coverage_only():
     print("Running coverage report...")
     pytest.main(['--cov-report', 'term-missing', '--cov=src/', 'tests/'])
 
-def run_generative():
+def run_generative_only():
     print("Running generative testing...")
-    pytest.main(['-v', '--hypothesis-show-statistics', 'tests/test_transformers_hypothesis.py'])
+    pytest.main(['-v', '--hypothesis-show-statistics', '-k', 'generative'])
 
 
 def main():
@@ -41,28 +41,24 @@ def main():
         'stage',
         metavar='stage',
         type=str,
-        choices=['unittest', 'generative', 'coverage'],
-        help="Stage to run. Either unittest, generative, coverage")
+        choices=['all', 'generative', 'coverage'],
+        help="Testing to run. Either: all, generative, coverage")
 
     if len(sys.argv[1:]) == 0:
-        # parser.print_help()
-        # parser.exit()
         print("Running all...")
-        run_unittests()
-        run_generative()
-        run_coverage()
+        run_all()
         return
 
     stage = parser.parse_args().stage
 
-    if stage == "unittest":
-        run_unittests()
+    if stage == "all":
+        run_all()
 
     elif stage == "coverage":
-        run_coverage()
+        run_coverage_only()
 
     elif stage == "generative":
-        run_generative()
+        run_generative_only()
 
 
 if __name__ == "__main__":
