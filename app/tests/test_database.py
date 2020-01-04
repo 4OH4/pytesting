@@ -16,7 +16,7 @@ import sqlite3
 from truth.truth import AssertThat
 
 # Module under test
-from src.database import DAO
+from app.database import DAO
 
 
 def test_init(mocker):
@@ -25,7 +25,7 @@ def test_init(mocker):
     """
 
     # given: setup test framework
-    mock_SQLite3 = mocker.patch('src.database.sqlite3')
+    mock_SQLite3 = mocker.patch('app.database.sqlite3')
     mock_ConnectionObj = mocker.MagicMock(sqlite3.Connection)  # mock Connection object
     mock_CursorObj = mocker.MagicMock(sqlite3.Cursor)  # mock Cursor object
     mock_ConnectionObj.cursor.return_value = mock_CursorObj  # setup method calls
@@ -46,9 +46,9 @@ def test_delete_db(mocker):
     """
     
     # given: setup test framework
-    mock_SQLite3 = mocker.patch('src.database.sqlite3')  # patch database createion in DAO.__init__
+    mock_SQLite3 = mocker.patch('app.database.sqlite3')  # patch database createion in DAO.__init__
     dao = DAO()
-    mock_os_remove = mocker.patch('src.database.os.remove')  # patch database deletion command
+    mock_os_remove = mocker.patch('app.database.os.remove')  # patch database deletion command
 
     # /when
     dao.delete_db()

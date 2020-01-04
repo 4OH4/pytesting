@@ -18,7 +18,7 @@ from hypothesis import given
 from truth.truth import AssertThat
 
 # Module under test
-from src.worker import Worker
+from app.worker import Worker
 
 
 @given(text())

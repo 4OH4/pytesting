@@ -15,7 +15,7 @@ pytest
 from truth.truth import AssertThat
 
 # Module under test
-from src.worker import Worker
+from app.worker import Worker
 
 
 def test_parseLine1(mocker):

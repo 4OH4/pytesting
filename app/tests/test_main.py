@@ -17,7 +17,7 @@ import os
 from truth.truth import AssertThat
 
 # Module under test
-from src.main import Application
+from app.main import Application
 
 
 def test_init(mocker):
@@ -28,8 +28,8 @@ def test_init(mocker):
     """
     
     # given: setup test framework
-    mock_dao = mocker.patch('src.main.DAO')
-    mock_worker = mocker.patch('src.main.Worker')
+    mock_dao = mocker.patch('app.main.DAO')
+    mock_worker = mocker.patch('app.main.Worker')
     
     # when:
     app = Application()
@@ -47,8 +47,8 @@ def test_loadData(mocker):
     """
     
     # given: setup test framework
-    mock_dao = mocker.patch('src.main.DAO')
-    mock_worker = mocker.patch('src.main.Worker')
+    mock_dao = mocker.patch('app.main.DAO')
+    mock_worker = mocker.patch('app.main.Worker')
     dummy_data_filepath = 'data/dummy_datafile.txt'
     mock_data = {'job_title': 'Mechanic',
                 'company_name': 'Red123',

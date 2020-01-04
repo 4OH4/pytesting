@@ -11,7 +11,7 @@ Adapted from: https://github.com/cambridgespark/pydata-testing-for-data-science
 Raoul-Gabriel Urma
 
 Run tests (from the root folder using):
-python -m pytest test/
+python -m pytest app/tests
 
 """
 import argparse
@@ -23,15 +23,15 @@ import pytest
 
 def run_all():
     print("Running all tests...")
-    pytest.main(['-v', 'tests', '--cov-report', 'term-missing', '--cov=src/'])
+    pytest.main(['-v', 'app/tests', '--cov-report', 'term-missing', '--cov=app/'])
 
 def run_coverage_only():
     print("Running coverage report...")
-    pytest.main(['--cov-report', 'term-missing', '--cov=src/', 'tests/'])
+    pytest.main(['--cov-report', 'term-missing', '--cov=app/', 'app/tests'])
 
 def run_generative_only():
     print("Running generative testing...")
-    pytest.main(['-v', '--hypothesis-show-statistics', '-k', 'generative'])
+    pytest.main(['-v', 'app/tests', '--hypothesis-show-statistics', '-k', 'generative'])
 
 
 def main():
