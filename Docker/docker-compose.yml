@@ -15,11 +15,5 @@ services:
     command:
       /bin/bash
 
-    # ports:
-    #   - "8888:8888"
-
-    #command: 
-    #  jupyter lab --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='local_dev'
-
     volumes:
       - ../:/working
