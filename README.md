@@ -6,6 +6,10 @@
 # pytesting
 Unit testing, code coverage and mocking with `Pytest`, and property-based testing with `Hypothesis`.
 
+[https://github.com/4OH4/pytesting](https://github.com/4OH4/pytesting)
+
+This repository is the companion code for a forthcoming blog post on Python software testing. Feedback encouraged - please raise an issue.
+
 ## Setup and requirements
 Python 3 and the following packages (all available via `pip`):
  - pytest
@@ -34,3 +38,6 @@ To run all test cases:
     pytest
 
 To run the code coverage report:
+
+    pytest --cov=src tests
+
