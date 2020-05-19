@@ -10,6 +10,25 @@ Unit testing, code coverage and mocking with `Pytest`, and property-based testin
 
 This repository is the companion code for a forthcoming blog post on Python software testing. Feedback encouraged - please raise an issue.
 
+### Quickstart
+
+Clone the repository, install requirements into your Python environment and run the tests:
+
+    git clone https://github.com/4OH4/pytesting
+    cd pytesting
+    pip install -r requirements.txt
+    python run_tests.py
+
+### Quickstart with Docker
+
+Clone the repository and run everything inside a Docker container:
+
+    git clone https://github.com/4OH4/pytesting
+    cd pytesting/Docker
+    docker-compose -d up
+    docker-compose run pytesting
+    python run_tests.py
+
 ## Setup and requirements
 Python 3 and the following packages (all available via `pip`):
  - pytest
