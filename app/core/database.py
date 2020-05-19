@@ -20,20 +20,22 @@ import os
 import sqlite3
 
 class DAO(object):
-    """Sqlite3 database DAO for Pytesting demo application
-        Handles a database table for job information:
-        job title, job ID, company name, job salary
+    """
+    Sqlite3 database DAO for Pytesting demo application
+    Handles a database table for job information:
+    job title, job ID, company name, job salary
 
-        Usage:
-        >>> dao = DAO('example.db')
-        Database connection initialised
-        >>> dao.create_jobs_table()
-        >>> dao.insert_job('Cook','Tasty Food Shack',11000,'11/06/2019')
-        1
-        >>> dao.query_job(1)
-        ('Cook', 1, 'Tasty Food Shack', 11000, '11/06/2019')
-        >>> dao.close()
-        >>> dao.delete_db()
+    Usage:
+    >>> dao = DAO('example.db')
+    Database connection initialised
+    >>> dao.create_jobs_table()
+    >>> dao.insert_job('Cook','Tasty Food Shack',11000,'11/06/2019')
+    1
+    >>> dao.query_job(1)
+    ('Cook', 1, 'Tasty Food Shack', 11000, '11/06/2019')
+    >>> dao.close()
+    >>> dao.delete_db()
+
     """
 
     def __init__(self, db_filepath='example.db'):

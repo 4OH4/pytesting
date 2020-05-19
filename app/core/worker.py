@@ -9,7 +9,7 @@ Created 15/11/2019
 """
 
 # Conversion map for three-letter months
-short_months = {'Jan': 1, 'Feb': 1, 'Mar': 3, 'Apr': 4, 'May': 5, 'June': 6,
+short_months = {'Jan': 1, 'Feb': 1, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
                 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
 
 # Data file format (columns)
@@ -34,7 +34,7 @@ class Worker:
 
         for temp_line in in_file.readlines():
 
-            parsed = self.parseLine(temp_line)
+            parsed = self.parseLineCSV(temp_line)
             if parsed is not None:
                 output_data.append(parsed)
             
@@ -44,8 +44,7 @@ class Worker:
 
         return output_data
 
-
-    def parseLine(self, input_string):
+    def parseLineCSV(self, input_string):
         """
         Parse a single row of input data, and run rudimentary checks
 
@@ -70,34 +69,23 @@ class Worker:
                 }
 
         return result
-
-                
                 
     def parseDate(self, input_string):
         """ 
-        Parses an input string, and extracts integer values for day, month and year
+        Parses an input string, and extracts a date in ddmmmYYYY format.
+        Returns result in ISO8601 timestamp format
 
-        N.B. this function is deliberately lacking in robust validation and checking of the input data
+        N.B. this function is deliberately lacking in robust validation and checking of the input data.
+        This functionality may be better handled by the datetime module, although as a demonstration
+        it is written from scratch.
 
-        :param input_string: (string) hopefully containing a date in one of the two recognised formats
-        :returns result: (string) parsed date in dd/mm/YYYY format
+        :param input_string: (string) hopefully containing a date in the recognised format
+        :returns result: (string) parsed date in YYYY-mm-dd format
         """
         result_string = None
-        # Date format 1: dd/mm/yy     e.g. 01/09/19
-        split_parts = input_string.split('/')
-        if len(split_parts) == 3:
-            dd = int(split_parts[0])
-            mm = int(split_parts[1])
-            YYYY = 2000 + int(split_parts[2])
-            
-            # Test and assemble output
-            if (dd>0) and (dd<=31) and \
-                (mm>0) and (mm<=12) and \
-                (YYYY>2000) and (YYYY<2100):
-                    result_string = f'{dd:02}/{mm:02}/{YYYY}'
 
-        # Date format 2: ddmmmYYYY    09Jan2019
-        elif any(month in input_string for month in short_months.keys()):
+        # Date format: ddmmmYYYY   e.g. 09Jan2019
+        if any(month.lower() in input_string.lower() for month in short_months.keys()):
             # One of the three letter month strings is in the input
             match = next(month for month in short_months.keys() if month in input_string)
             split_parts = input_string.split(match)
@@ -107,10 +95,7 @@ class Worker:
                 YYYY = int(split_parts[1])
                 
                 # Test and assemble output
-                if (dd>0) and (dd<=31) and \
-                    (YYYY>2000) and (YYYY<2100):
-                    result_string = f'{dd:02}/{mm:02}/{YYYY}'
-                
-#        else: # Unknown date format
+                if (dd>0) and (dd<=31): # and (YYYY>2000) and (YYYY<2100):
+                    result_string = f'{YYYY}-{mm:02}-{dd:02}'
 
         return result_string

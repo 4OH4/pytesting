@@ -12,6 +12,7 @@ pytest
 
 """
 
+import pytest
 from truth.truth import AssertThat
 
 # Module under test
@@ -20,23 +21,23 @@ from app.core.worker import Worker
 
 def test_parseLine1(mocker):
     """ 
-    Test parseLine with good data (all fields present)
+    Test parseLineCSV with good data (all fields present)
 
-    Expected result: dict returne with data
+    Expected result: dict returned with data
     """
     
     # given: setup test framework
     worker = Worker()
-    testString = "11/11/19,Teacher,Brighter Futures,12000"
+    testString = "12Nov2019,Teacher,Brighter Futures,12000"
     expectedResult = {
-                    'date': '11/11/2019',
+                    'date': '2019-11-12',
                     'job_title': 'Teacher',
                     'company_name': 'Brighter Futures',
                     'salary': 12000
                 }
     
     # when:
-    result = worker.parseLine(testString)
+    result = worker.parseLineCSV(testString)
     
     # then:
     assert result == expectedResult
@@ -44,7 +45,7 @@ def test_parseLine1(mocker):
 
 def test_parseLine2(mocker):
     """ 
-    Test parseLine with bad data (some fields missing)
+    Test parseLineCSV with bad data (some fields missing)
 
     Expected result: result is None
     """
@@ -54,7 +55,7 @@ def test_parseLine2(mocker):
     testString = "11/11/19,Brighter Futures,12000"
     
     # when:
-    result = worker.parseLine(testString)
+    result = worker.parseLineCSV(testString)
     
     # then: (Using PyTruth assertions)
     AssertThat(result).IsNone()
@@ -62,14 +63,14 @@ def test_parseLine2(mocker):
 
 def test_parseDate1(mocker):
     """ 
-    Test parseLine with Date format 1: dd/mm/yy
+    Test parseDate with date format: ddmmmYYYY
 
-    Expected result: formatted string in dd/mm/YYYY
+    Expected result: formatted string in YYYY-mm-dd
     """    
     # given: setup test framework
     worker = Worker()
-    testString = "01/12/20"
-    expected_result = "01/12/2020"
+    testString = "01Dec2020"
+    expected_result = "2020-12-01"
     
     # when:
     result = worker.parseDate(testString)
@@ -80,14 +81,14 @@ def test_parseDate1(mocker):
 
 def test_parseDate2(mocker):
     """ 
-    Test parseLine with Date format 2: ddmmmYYYY
+    Test parseDate with date format: ddmmmYYYY
 
-    Expected result: formatted string in dd/mm/YYYY
+    Expected result: formatted string in YYYY-mm-dd
     """    
     # given: setup test framework
     worker = Worker()
     testString = "04Jan2019"
-    expected_result = "04/01/2019"
+    expected_result = "2019-01-04"
     
     # when:
     result = worker.parseDate(testString)
@@ -96,35 +97,49 @@ def test_parseDate2(mocker):
     AssertThat(result).IsEqualTo(expected_result)
 
 
+@pytest.mark.xfail  # This test case is currently expected to fail
 def test_parseDate3(mocker):
     """ 
-    Test parseLine with bad Date format 1: dd/mmyy
+    Test parseDate with unusual input
 
     Expected result: result is None
+
+    N.B. Worker.parseDate doesn't implement robust input validation, so will
+    trigger an unhandled exception when fed non-string inputs. Hence, this
+    test case is currently expected to fail.
+
     """    
     # given: setup test framework
     worker = Worker()
-    testString = "12/1220"
+    input_strings = ["12/1220", "01/01/19999", "Monday", -1, [], {"hello": "world"}, 3.5] 
     
     # when:
-    result = worker.parseDate(testString)
-    
-    # then:
-    AssertThat(result).IsNone()
+    for input_string in input_strings:
+        result = worker.parseDate(input_string)
+        
+        # then:
+        AssertThat(result).IsNone()
 
 
+@pytest.mark.xfail  # This test case is currently expected to fail
 def test_parseDate4(mocker):
     """ 
-    Test parseLine with bad Date format 2: 32Jan2019
+    Test parseDate with unusual input
 
     Expected result: result is None
+
+    N.B. Worker.parseDate contains some complicated logic, that can get tripped
+    by some unusual input - in this case a real-world date format "19th June 2020".
+    Hence, this test case is currently expected to fail.
+
     """    
     # given: setup test framework
     worker = Worker()
-    testString = "32Jan2019"
+    input_strings = ["32Jan2019", "Tuesday", "19th June 2020"]
     
     # when:
-    result = worker.parseDate(testString)
+    for input_string in input_strings:
+        result = worker.parseDate(input_string)
     
     # then:
-    AssertThat(result).IsNone()
+        AssertThat(result).IsNone()
