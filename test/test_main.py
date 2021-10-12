@@ -14,52 +14,53 @@ pytest
 
 import os
 
+from pytest_mock import MockerFixture
 from truth.truth import AssertThat
 
 # Module under test
 from app.main import Application
 
 
-def test_init(mocker):
+def test_init(mocker: MockerFixture):
     """ 
     Test application initialisation
 
     Expected result: DAO and Worker classes instantiated
     """
-    
+
     # given: setup test framework
     mock_dao = mocker.patch('app.main.DAO')
     mock_worker = mocker.patch('app.main.Worker')
-    
+
     # when:
     app = Application()
-    
+
     # then:
     AssertThat(mock_dao).WasCalled().Once()
     AssertThat(mock_worker).WasCalled().Once()
 
 
-def test_loadData(mocker):
+def test_loadData(mocker: MockerFixture):
     """ 
     Test application loading data from text file
 
     Expected result: app loads data into DB via DAO
     """
-    
+
     # given: setup test framework
     mock_dao = mocker.patch('app.main.DAO')
     mock_worker = mocker.patch('app.main.Worker')
     dummy_data_filepath = 'data/dummy_datafile.txt'
     mock_data = {'job_title': 'Mechanic',
-                'company_name': 'Red123',
-                'salary': 98765,
-                'date': '14/06/2019'}
+                 'company_name': 'Red123',
+                 'salary': 98765,
+                 'date': '14/06/2019'}
     mock_worker.readData.return_value = mock_data
     app = Application()
-    
-    # when:    
+
+    # when:
     app.loadData(dummy_data_filepath)
-    
+
     # then:
     # AssertThat(mock_worker.readData).WasCalled().Once().With(dummy_data_filepath)
     # AssertThat(mock_dao.insert_job).WasCalled().Once().With(mock_data['job_title'],
