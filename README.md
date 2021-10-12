@@ -17,7 +17,8 @@ Clone the repository, install requirements into your Python environment and run 
     git clone https://github.com/4OH4/pytesting
     cd pytesting
     pip install -r requirements.txt
-    python run_tests.py
+    pip install -r test/requirements.txt
+    python run_test_suite.py
 
 ### Quickstart with Docker
 
@@ -27,7 +28,7 @@ Clone the repository and run everything inside a Docker container:
     cd pytesting/Docker
     docker-compose -d up
     docker-compose run pytesting
-    python run_tests.py
+    python run_test_suite.py
 
 ## Setup and requirements
 Python 3 and the following packages (all available via `pip`):
@@ -37,9 +38,10 @@ Python 3 and the following packages (all available via `pip`):
  - pytruth
  - hypothesis
 
-Or install via the `requirements.txt` file:
+Or install via the two `requirements.txt` files:
 
     pip install -r requirements.txt
+    pip install -r test/requirements.txt
 
 ## Running test cases
 Tests should be run from the command line, in the repository root.
@@ -47,7 +49,7 @@ Tests should be run from the command line, in the repository root.
 ### Doctest
 Doctests are executed for a single module at a time. The command runs the tests in database.py (for example):
 
-    python -m doctest -v src/database.py
+    python -m doctest -v app/database.py
 
 The `-v` argument requests verbose output - otherwise it only reports test failures.
 
@@ -58,5 +60,5 @@ To run all test cases:
 
 To run the code coverage report:
 
-    pytest --cov=src tests
+    pytest --cov=app test
 
