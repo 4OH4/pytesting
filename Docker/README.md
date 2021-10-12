@@ -8,4 +8,4 @@ From the `pytesting/Docker` folder, use the following commads at the command lin
 
     docker-compose -d up
     docker-compose run pytesting
-    python run_tests.py
+    python run_test_suite.py

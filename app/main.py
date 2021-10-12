@@ -8,8 +8,8 @@ Start point for demo application
 Created 15/11/2019
 """
 
-from app.core.worker import Worker
-from app.core.database import DAO
+from worker import Worker
+from database import DAO
 
 class Application:
     def __init__(self):

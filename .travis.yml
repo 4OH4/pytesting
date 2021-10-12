@@ -5,9 +5,10 @@ python:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
+  - pip install -r test/requirements.txt
   - pip install coveralls      # only required to get a coverage report on coveralls.io
 # command to run tests
 script:
-  - python -m pytest --cov=src
+  - python -m pytest --cov=app
 after_success:
   - coveralls

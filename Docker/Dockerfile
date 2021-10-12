@@ -6,7 +6,7 @@ USER root
 WORKDIR "/"
 
 # load in the Pip requirements.txt file (assumes context is parent folder...)
-ADD ./requirements.txt /
+ADD ./test/requirements.txt /
 
 # update the environnment
 RUN pip install -r requirements.txt
