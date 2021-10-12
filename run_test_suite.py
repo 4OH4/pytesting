@@ -11,7 +11,7 @@ Adapted from: https://github.com/cambridgespark/pydata-testing-for-data-science
 Raoul-Gabriel Urma
 
 Run tests (from the root folder using):
-python -m pytest app/tests
+python -m pytest test
 
 """
 import argparse

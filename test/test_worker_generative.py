@@ -21,7 +21,7 @@ from hypothesis import given
 from truth.truth import AssertThat
 
 # Module under test
-from app.core.worker import Worker
+from app.worker import Worker
 
 
 # Generate strings using all printable characters, except forward slashes

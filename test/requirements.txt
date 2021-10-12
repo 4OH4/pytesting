@@ -1,0 +1,7 @@
+# Test-specific requirements
+#attrs>=19.2.0
+pytest~=6.2
+pytest-cov~=2.10
+pytest-mock~=3.3
+pytruth~=1.1
+hypothesis~=6.23
