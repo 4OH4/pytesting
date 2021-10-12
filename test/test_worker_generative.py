@@ -40,7 +40,7 @@ def test_worker_parseLineCSV_generative(input_string):
 
 # Generate dates within the four digit year range
 @given(input_date=dates(min_value=datetime.date(1000, 1, 1), max_value=datetime.date(9999, 1, 1)))
-def test_worker_parseDate1_generative(mocker, input_date):
+def test_worker_parseDate1_generative(input_date):
 
     # given
     input_string = input_date.strftime(format="%d%b%Y")
