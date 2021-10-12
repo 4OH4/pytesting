@@ -60,5 +60,5 @@ To run all test cases:
 
 To run the code coverage report:
 
-    pytest --cov=app test
+    pytest --cov=app
 
